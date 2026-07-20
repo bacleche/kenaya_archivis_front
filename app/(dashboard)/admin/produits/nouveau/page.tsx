@@ -10,8 +10,8 @@ import { produitAPI } from '@/lib/api'
 
 // Alignement strict avec les NOMS de ton modèle Django
 const OPTIONS_PRODUITS = [
-  { value: 'western_union', label: 'Western Union' },
-  { value: 'change',        label: 'Change' },
+  { value: 'moneygram', label: 'MONEYGRAM' },
+  { value: 'ria',        label: 'RIA' },
   { value: 'visa',          label: 'VISA' },
   { value: 'momo',          label: 'MOMO' },
   { value: 'airtel_money',  label: 'Airtel Money' },
