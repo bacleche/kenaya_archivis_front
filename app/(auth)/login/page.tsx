@@ -30,39 +30,15 @@ function LoginContent() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm({ ...form, [e.target.name]: e.target.value })
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault()
-  //   setLoading(true)
-  //   try {
-  //     const { data } = await authAPI.login(form)
-  //     setPendingEmail(data.email)
-  //     enqueueSnackbar('Code OTP envoyé à votre adresse email.', { variant: 'info' })
-  //     router.push('/verify-otp')
-  //   } catch (err: unknown) {
-  //     const e = err as { response?: { data?: { detail?: string } } }
-  //     const msg = e.response?.data?.detail || 'Identifiants incorrects.'
-  //     enqueueSnackbar(msg, { variant: 'error' })
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }
-
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault()
   setLoading(true)
   
   try {
-    //  CORRECT : On passe UN SEUL argument (l'objet complet "form") à l'API
     await authAPI.login(form)
-    
-    //  CORRECT : On passe UN SEUL argument (la string "form.email") au store Zustand
     setPendingEmail(form.email) 
-    
     enqueueSnackbar('Code de vérification envoyé à votre adresse email.', { variant: 'info' })
-    
-    // Redirection vers l'écran OTP
     router.push('/verify-otp')
-    
   } catch (err: unknown) {
     const e = err as { response?: { data?: { detail?: string } } }
     const msg = e.response?.data?.detail || 'Identifiants incorrects.'
@@ -77,10 +53,10 @@ const handleSubmit = async (e: React.FormEvent) => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#090d16',
+      backgroundColor: '#061a14',
       backgroundImage: `
-        radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 90% 80%, rgba(29, 78, 216, 0.1) 0%, transparent 50%)
+        radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(15, 23, 42, 0.25) 0%, transparent 50%)
       `,
       p: 2,
     }}>
@@ -93,40 +69,40 @@ const handleSubmit = async (e: React.FormEvent) => {
           borderRadius: 4,
           boxShadow: '0 30px 60px -15px rgba(0,0,0,0.7)',
           overflow: 'hidden',
-          border: '1px solid rgba(255,255,255,0.06)',
-          background: 'rgba(15, 23, 42, 0.6)',
+          border: '1px solid rgba(16,185,129,0.08)',
+          background: 'rgba(8, 24, 20, 0.7)',
           backdropFilter: 'blur(20px)',
         }}>
 
           {/* ── PANNEAU GAUCHE : Branding Digital & Immersif ── */}
           <Box sx={{
             width: { xs: 0, md: '45%' },
-            background: 'linear-gradient(135deg, #111827 0%, #1e293b 100%)',
+            background: 'linear-gradient(135deg, #06241b 0%, #0d1b2a 100%)',
             color: 'white',
             display: { xs: 'none', md: 'flex' },
             flexDirection: 'column',
             p: 6,
             justifyContent: 'space-between',
-            borderRight: '1px solid rgba(255,255,255,0.06)',
+            borderRight: '1px solid rgba(16,185,129,0.08)',
           }}>
             <Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 6 }}>
                 <Box sx={{
-                  p: 1.2, borderRadius: 2, bgcolor: '#2563eb',
-                  display: 'flex', boxShadow: '0 0 25px rgba(37,99,233,0.4)',
+                  p: 1.2, borderRadius: 2, bgcolor: '#059669',
+                  display: 'flex', boxShadow: '0 0 25px rgba(5,150,105,0.4)',
                 }}>
                   <ShieldOutlined sx={{ fontSize: 10}} />
                 </Box>
                 <Image 
-                src="/LOGOPRESF.png" 
+                src="/kenaya.png" 
                 alt="Logo PRESF" 
-                width={80}  // Taille agrandie
-                height={80} // Taille agrandie
+                width={80}  
+                height={80} 
                 style={{ 
-                  borderRadius: '50%',      // Rend l'image parfaitement ronde
-                  backgroundColor: '#FFFFFF', // Force un fond blanc au cas où
-                  objectFit: 'cover',       // Ajuste l'image pour qu'elle remplisse bien le cercle
-                  border: '2px solid #f1f5f9' // Optionnel : une légère bordure pour le look
+                  borderRadius: '50%',      
+                  backgroundColor: '#FFFFFF', 
+                  objectFit: 'cover',       
+                  border: '2px solid #f1f5f9' 
                 }} 
               />
               <Typography variant="h4" sx={{ fontWeight: 800, letterSpacing: '0.5px' }}>
@@ -147,7 +123,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               border: '1px solid rgba(255,255,255,0.04)',
             }}>
               <Box sx={{ display: 'flex', gap: 1.5, mb: 1, alignItems: 'center' }}>
-                <AutoGraphOutlined sx={{ color: '#3b82f6', fontSize: 20 }} />
+                <AutoGraphOutlined sx={{ color: '#10b981', fontSize: 20 }} />
                 <Typography variant="body2" sx={{ fontWeight: 600, color: '#f1f5f9' }}>
                   Statistiques et Traçabilité
                 </Typography>
@@ -161,7 +137,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           {/* ── PANNEAU DROIT : Formulaire Cyber-Sûr ── */}
           <Box sx={{
             width: { xs: '100%', md: '55%' },
-            bgcolor: '#0f172a',
+            bgcolor: '#081612',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -208,12 +184,12 @@ const handleSubmit = async (e: React.FormEvent) => {
                   sx={{
                     mb: 3,
                     '& .MuiOutlinedInput-root': {
-                      bgcolor: 'rgba(30, 41, 59, 0.5)', 
+                      bgcolor: 'rgba(13, 30, 42, 0.6)', 
                       borderRadius: 2.5,
                       color: '#f8fafc',
-                      '& fieldset': { borderColor: 'rgba(255,255,255,0.08)' },
-                      '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.2)' },
-                      '&.Mui-focused fieldset': { borderColor: '#3b82f6' },
+                      '& fieldset': { borderColor: 'rgba(16,185,129,0.12)' },
+                      '&:hover fieldset': { borderColor: 'rgba(16,185,129,0.3)' },
+                      '&.Mui-focused fieldset': { borderColor: '#10b981' },
                     },
                   }}
                   slotProps={{
@@ -240,12 +216,12 @@ const handleSubmit = async (e: React.FormEvent) => {
                   sx={{
                     mb: 5,
                     '& .MuiOutlinedInput-root': {
-                      bgcolor: 'rgba(30, 41, 59, 0.5)', 
+                      bgcolor: 'rgba(13, 30, 42, 0.6)', 
                       borderRadius: 2.5,
                       color: '#f8fafc',
-                      '& fieldset': { borderColor: 'rgba(255,255,255,0.08)' },
-                      '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.2)' },
-                      '&.Mui-focused fieldset': { borderColor: '#3b82f6' },
+                      '& fieldset': { borderColor: 'rgba(16,185,129,0.12)' },
+                      '&:hover fieldset': { borderColor: 'rgba(16,185,129,0.3)' },
+                      '&.Mui-focused fieldset': { borderColor: '#10b981' },
                     },
                   }}
                   slotProps={{
@@ -272,18 +248,18 @@ const handleSubmit = async (e: React.FormEvent) => {
                   sx={{
                     py: 1.8, 
                     borderRadius: 2.5,
-                    bgcolor: '#3b82f6',
+                    bgcolor: '#059669',
                     color: '#ffffff',
                     textTransform: 'none',
                     fontSize: '0.95rem', 
                     fontWeight: 700,
-                    boxShadow: '0 4px 20px rgba(59, 130, 246, 0.3)',
+                    boxShadow: '0 4px 20px rgba(5, 150, 105, 0.3)',
                     '&:hover': { 
-                      bgcolor: '#2563eb',
-                      boxShadow: '0 6px 25px rgba(59, 130, 246, 0.4)',
+                      bgcolor: '#047857',
+                      boxShadow: '0 6px 25px rgba(5, 150, 105, 0.4)',
                     },
                     '&.Mui-disabled': {
-                      bgcolor: 'rgba(59, 130, 246, 0.3)',
+                      bgcolor: 'rgba(5, 150, 105, 0.3)',
                       color: 'rgba(255,255,255,0.5)'
                     }
                   }}
@@ -297,7 +273,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
               <Typography variant="body2" align="center" sx={{ mt: 5, color: '#64748b', fontSize: '0.85rem' }}>
                 Un problème de connexion ?{' '}
-                <span style={{ color: '#3b82f6', cursor: 'pointer', fontWeight: 600 }}>
+                <span style={{ color: '#10b981', cursor: 'pointer', fontWeight: 600 }}>
                   Contacter l&apos;administrateur
                 </span>
               </Typography>

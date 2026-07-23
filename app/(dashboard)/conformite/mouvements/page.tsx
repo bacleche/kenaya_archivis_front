@@ -839,8 +839,8 @@ interface Archive {
 // ─── Couleurs par produit ──────────────────────────────────────
 
 const PRODUIT_COLORS: Record<string, { bg: string; color: string }> = {
-  western_union: { bg: '#E6F1FB', color: '#0C447C' },
-  change:        { bg: '#EAF3DE', color: '#27500A' },
+  moneygram: { bg: '#E6F1FB', color: '#0C447C' },
+  ria:        { bg: '#EAF3DE', color: '#27500A' },
   visa:          { bg: '#EEEDFE', color: '#3C3489' },
   momo:          { bg: '#FAEEDA', color: '#633806' },
   airtel_money:  { bg: '#FAECE7', color: '#712B13' },
@@ -1256,8 +1256,8 @@ function NouvelleArchiveModal({
   const produitNom = produits.find(p => p.id === produitId)?.nom ?? ''
 
   const TYPES_PREVIEW: Record<string, string[]> = {
-    western_union: ['Réconciliation','API','Arrêté de caisse (matin)','Arrêté de caisse (soir)','Journal de transaction'],
-    change:        ['Mouvement de caisse','Arrêté de caisse (matin)','Arrêté de caisse (soir)','Journal de transaction'],
+    moneygram: ['Réconciliation','Arrêté de caisse (matin)','Arrêté de caisse (soir)','Journal de transaction' , 'Recu systeme', 'bordereaux', 'Pieces d\'identités'],
+    ria:        ['Arrêté de caisse (matin)','Arrêté de caisse (soir)','Journal de transaction', 'Recu systeme', 'bordereaux', 'Pieces d\'identités'],
     visa:          ['Arrêté (matin)','Arrêté (soir)','Fiche de souscription','Fiche de réclamation'],
     momo:          ['Arrêté de caisse (matin)','Arrêté de caisse (soir)'],
     airtel_money:  ['Arrêté (matin)','Arrêté (soir)'],

@@ -1,3 +1,4 @@
+
 'use client'
 import { useState } from 'react'
 import Image from 'next/image';
@@ -144,7 +145,7 @@ function DrawerContent({ onClose, onLogout }: { onClose?: () => void, onLogout: 
           <ListItem disablePadding sx={{ px: 1, mb: 0.5 }}>
             <ListItemButton
               onClick={() => toggleGroup(item.label)}
-              sx={{ borderRadius: 2, pl: 1 + depth, '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' } }}
+              sx={{ borderRadius: 2, pl: 1 + depth, '&:hover': { bgcolor: 'rgba(16,185,129,0.1)' } }}
             >
               <ListItemIcon sx={{ color: 'rgba(255,255,255,0.6)', minWidth: 36 }}>{item.icon}</ListItemIcon>
               <ListItemText primary={<Typography sx={{ fontSize: 14, color: 'rgba(255,255,255,0.7)' }}>{item.label}</Typography>} />
@@ -166,11 +167,11 @@ function DrawerContent({ onClose, onLogout }: { onClose?: () => void, onLogout: 
           sx={{
             borderRadius: 2,
             pl: 1 + depth,
-            bgcolor: actif ? 'rgba(255,255,255,0.2)' : 'transparent',
-            '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' },
+            bgcolor: actif ? 'rgba(16,185,129,0.2)' : 'transparent',
+            '&:hover': { bgcolor: 'rgba(16,185,129,0.1)' },
           }}
         >
-          <ListItemIcon sx={{ color: actif ? 'white' : 'rgba(255,255,255,0.6)', minWidth: 36 }}>{item.icon}</ListItemIcon>
+          <ListItemIcon sx={{ color: actif ? '#10b981' : 'rgba(255,255,255,0.6)', minWidth: 36 }}>{item.icon}</ListItemIcon>
           <ListItemText primary={<Typography sx={{ fontSize: 14, fontWeight: actif ? 700 : 400, color: actif ? 'white' : 'rgba(255,255,255,0.7)' }}>{item.label}</Typography>} />
         </ListItemButton>
       </ListItem>
@@ -182,17 +183,17 @@ function DrawerContent({ onClose, onLogout }: { onClose?: () => void, onLogout: 
       <Box sx={{ p: 3, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <ShieldOutlined sx={{ color: '#3b82f6', fontSize: 10 }} />
+            <ShieldOutlined sx={{ color: '#10b981', fontSize: 10 }} />
             <Image 
-                            src="/LOGOPRESF.png" 
+                            src="/kenaya.png" 
                             alt="Logo PRESF" 
-                            width={20}  // Taille agrandie
-                            height={20} // Taille agrandie
+                            width={20}  
+                            height={20} 
                             style={{ 
-                              borderRadius: '50%',      // Rend l'image parfaitement ronde
-                              backgroundColor: '#FFFFFF', // Force un fond blanc au cas où
-                              objectFit: 'cover',       // Ajuste l'image pour qu'elle remplisse bien le cercle
-                              border: '2px solid #f1f5f9' // Optionnel : une légère bordure pour le look
+                              borderRadius: '50%',      
+                              backgroundColor: '#FFFFFF', 
+                              objectFit: 'cover',       
+                              border: '2px solid #f1f5f9' 
                             }} 
                           />
                           <Typography variant="h4" sx={{ fontSize: 20, fontWeight: 800, letterSpacing: '0.5px' }}>
@@ -202,15 +203,15 @@ function DrawerContent({ onClose, onLogout }: { onClose?: () => void, onLogout: 
         </Box>
         {onClose && <IconButton onClick={onClose} sx={{ color: 'white' }}><CloseOutlined /></IconButton>}
       </Box>
-      <Divider sx={{ borderColor: 'rgba(255,255,255,0.15)' }} />
+      <Divider sx={{ borderColor: 'rgba(16,185,129,0.15)' }} />
       <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1.5 }}>
-        <Avatar sx={{ bgcolor: 'rgba(255,255,255,0.2)', width: 36, height: 36 }}>{user?.prenom?.[0]}{user?.nom?.[0]}</Avatar>
+        <Avatar sx={{ bgcolor: 'rgba(16,185,129,0.2)', width: 36, height: 36, color: '#10b981', fontWeight: 700 }}>{user?.prenom?.[0]}{user?.nom?.[0]}</Avatar>
         <Box>
           <Typography variant="body2" sx={{ color: 'white', fontWeight: 600 }}>{user?.prenom} {user?.nom}</Typography>
-          <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.6)' }}>{user?.role}</Typography>
+          <Typography variant="caption" sx={{ color: '#10b981' }}>{user?.role}</Typography>
         </Box>
       </Box>
-      <Divider sx={{ borderColor: 'rgba(255,255,255,0.15)', mb: 1 }} />
+      <Divider sx={{ borderColor: 'rgba(16,185,129,0.15)', mb: 1 }} />
       <List sx={{ flexGrow: 1 }}>{menu.map((item) => renderItem(item))}</List>
     </Box>
   )
@@ -232,7 +233,7 @@ export default function Sidebar() {
     flexShrink: 0,
     '& .MuiDrawer-paper': {
       width: DRAWER_WIDTH,
-      background: 'linear-gradient(180deg, #1e293b 0%, #0D47A1 100%)',
+      background: 'linear-gradient(180deg, #06241b 0%, #0d1b2a 100%)',
       color: 'white',
       border: 'none',
       boxSizing: 'border-box' as const,
@@ -241,7 +242,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <AppBar position="fixed" sx={{ display: { xs: 'flex', md: 'none' }, background: 'linear-gradient(90deg, #1e293b, #0D47A1)', boxShadow: '0 2px 8px rgba(0,0,0,0.3)', zIndex: theme.zIndex.drawer + 1 }}>
+      <AppBar position="fixed" sx={{ display: { xs: 'flex', md: 'none' }, background: 'linear-gradient(90deg, #06241b, #0d1b2a)', boxShadow: '0 2px 8px rgba(0,0,0,0.3)', zIndex: theme.zIndex.drawer + 1 }}>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <IconButton edge="start" color="inherit" onClick={() => setOpen(true)}><MenuOutlined /></IconButton>
           <Typography variant="h6" sx={{ fontWeight: 700 }}>PRESF ARCHIVIS</Typography>
@@ -259,3 +260,4 @@ export default function Sidebar() {
     </>
   )
 }
+

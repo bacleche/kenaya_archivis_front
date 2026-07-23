@@ -95,20 +95,16 @@ export default function VerifyOtpPage() {
   const code = otp.join('')
   
   try {
-    // ✅ UN SEUL APPEL : On envoie les données et on récupère la réponse de manière unique
     const response = await authAPI.verifyOtp({ 
       email: pendingEmail, 
       otp: code 
     })
     
-    // On extrait proprement les variables fournies par ton interface de réponse
     const { user, access, refresh } = response.data
     
-    // Mise à jour du store centralisé avec l'utilisateur et les jetons d'accès
     setAuth(user, access, refresh) 
     enqueueSnackbar('Authentification réussie !', { variant: 'success' })
     
-    // Redirection dynamique et chirurgicale selon le rôle
     if (user.role === 'superadmin') {
       router.push('/admin')
     } else if (user.role === 'conformite') {
@@ -118,7 +114,7 @@ export default function VerifyOtpPage() {
     } else if (user.role === 'chef_agence') {
       router.push('/chef-agence') 
     } else {
-      router.push('/') // Redirection par défaut si aucun rôle ne correspond
+      router.push('/') 
     }
   } catch (err: unknown) {
     const e = err as { response?: { data?: { detail?: string } } }
@@ -133,7 +129,7 @@ export default function VerifyOtpPage() {
     if (!pendingEmail) return
     setLoading(true)
     try {
-      await authAPI.login({ email: pendingEmail, password: '' }) // Adapté selon ta logique de renvoi pass-less ou reconnexion
+      await authAPI.login({ email: pendingEmail, password: '' })
       setCountdown(300)
       setOtp(['', '', '', '', '', ''])
       inputsRef.current[0]?.focus()
@@ -151,10 +147,10 @@ export default function VerifyOtpPage() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#090d16',
+      backgroundColor: '#061a14',
       backgroundImage: `
-        radial-gradient(circle at 90% 10%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 10% 90%, rgba(29, 78, 216, 0.1) 0%, transparent 50%)
+        radial-gradient(circle at 90% 10%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 10% 90%, rgba(13, 30, 42, 0.25) 0%, transparent 50%)
       `,
       p: 2,
     }}>
@@ -164,8 +160,8 @@ export default function VerifyOtpPage() {
           maxWidth: 520,
           borderRadius: 4,
           boxShadow: '0 30px 60px -15px rgba(0,0,0,0.8)',
-          border: '1px solid rgba(255,255,255,0.06)',
-          background: 'rgba(15, 23, 42, 0.6)',
+          border: '1px solid rgba(16,185,129,0.08)',
+          background: 'rgba(8, 24, 20, 0.7)',
           backdropFilter: 'blur(20px)',
           p: { xs: 4, md: 6 },
         }}>
@@ -173,18 +169,18 @@ export default function VerifyOtpPage() {
           {/* Logo / Entête */}
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, mb: 5 }}>
             <Box sx={{
-              p: 1, borderRadius: 2, bgcolor: '#2563eb',
-              display: 'flex', boxShadow: '0 0 20px rgba(37,99,233,0.4)',
+              p: 1, borderRadius: 2, bgcolor: '#059669',
+              display: 'flex', boxShadow: '0 0 20px rgba(5,150,105,0.4)',
             }}>
               <ShieldOutlined sx={{ fontSize: 22, color: 'white' }} />
             </Box>
             <Typography variant="h6" sx={{ fontWeight: 800, color: 'white', letterSpacing: '0.5px' }}>
-              PRESF <span style={{ color: '#3b82f6', fontWeight: 500 }}>ARCHIVIS</span>
+              KENAYA <span style={{ color: '#10b981', fontWeight: 500 }}>ARCHIVIS</span>
             </Typography>
           </Box>
 
           <Box sx={{ textAlign: 'center', mb: 5 }}>
-            <MarkEmailReadOutlined sx={{ fontSize: 50, color: '#3b82f6', mb: 2 }} />
+            <MarkEmailReadOutlined sx={{ fontSize: 50, color: '#10b981', mb: 2 }} />
             <Typography variant="h4" sx={{ fontWeight: 800, color: '#f8fafc', mb: 1.5, letterSpacing: '-0.5px' }}>
               Vérification de sécurité
             </Typography>
@@ -213,18 +209,18 @@ export default function VerifyOtpPage() {
                     fontWeight: '700',
                     textAlign: 'center',
                     borderRadius: '10px',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    backgroundColor: 'rgba(30, 41, 59, 0.5)',
+                    border: '1px solid rgba(16,185,129,0.12)',
+                    backgroundColor: 'rgba(13, 30, 42, 0.6)',
                     color: '#f8fafc',
                     outline: 'none',
                     transition: 'all 0.2s ease',
                   }}
                   onFocus={(e) => {
-                    e.target.style.borderColor = '#3b82f6'
-                    e.target.style.boxShadow = '0 0 10px rgba(59, 130, 246, 0.3)'
+                    e.target.style.borderColor = '#10b981'
+                    e.target.style.boxShadow = '0 0 10px rgba(16, 185, 129, 0.3)'
                   }}
                   onBlur={(e) => {
-                    e.target.style.borderColor = 'rgba(255,255,255,0.08)'
+                    e.target.style.borderColor = 'rgba(16,185,129,0.12)'
                     e.target.style.boxShadow = 'none'
                   }}
                 />
@@ -244,19 +240,19 @@ export default function VerifyOtpPage() {
               sx={{
                 py: 1.8, 
                 borderRadius: 2.5,
-                bgcolor: '#3b82f6',
+                bgcolor: '#059669',
                 color: '#ffffff',
                 textTransform: 'none',
                 fontSize: '0.95rem', 
                 fontWeight: 700,
-                boxShadow: '0 4px 20px rgba(59, 130, 246, 0.3)',
+                boxShadow: '0 4px 20px rgba(5, 150, 105, 0.3)',
                 mb: 3,
                 '&:hover': { 
-                  bgcolor: '#2563eb',
-                  boxShadow: '0 6px 25px rgba(59, 130, 246, 0.4)',
+                  bgcolor: '#047857',
+                  boxShadow: '0 6px 25px rgba(5, 150, 105, 0.4)',
                 },
                 '&.Mui-disabled': {
-                  bgcolor: 'rgba(59, 130, 246, 0.2)',
+                  bgcolor: 'rgba(5, 150, 105, 0.2)',
                   color: 'rgba(255,255,255,0.3)'
                 }
               }}
@@ -269,7 +265,7 @@ export default function VerifyOtpPage() {
               <span
                 onClick={countdown === 0 && !loading ? handleResend : undefined}
                 style={{
-                  color: countdown === 0 ? '#3b82f6' : 'rgba(255,255,255,0.2)',
+                  color: countdown === 0 ? '#10b981' : 'rgba(255,255,255,0.2)',
                   cursor: countdown === 0 ? 'pointer' : 'not-allowed',
                   fontWeight: 600,
                   textDecoration: countdown === 0 ? 'underline' : 'none',

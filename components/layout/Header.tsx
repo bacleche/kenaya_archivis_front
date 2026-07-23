@@ -87,8 +87,8 @@ const handleNotifClick = (n: Notification) => {
       elevation={0}
       sx={{
         borderBottom: '1px solid',
-        borderColor: 'divider',
-        bgcolor: 'white',
+        borderColor: 'rgba(16,185,129,0.12)',
+        bgcolor: '#ffffff',
         display: { xs: 'none', md: 'block' },
       }}
     >
@@ -126,7 +126,7 @@ const handleNotifClick = (n: Notification) => {
                 onClick={async () => {
                   await Promise.all(notifications.filter(n => !n.is_read).map(n => markRead(n.id)))
                 }}
-                sx={{ color: '#0D47A1', cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}
+                sx={{ color: '#059669', cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}
               >
                 Tout lire
               </Typography>
@@ -147,8 +147,8 @@ const handleNotifClick = (n: Notification) => {
                       onClick={() => handleNotifClick(n)}      // ← marquer lu au clic
                       sx={{
                         cursor: 'pointer',                              // ← ajout
-                        bgcolor: n.is_read ? 'transparent' : '#f0f9ff',
-                        borderLeft: n.is_read ? 'none' : '3px solid #0D47A1',
+                        bgcolor: n.is_read ? 'transparent' : 'rgba(16,185,129,0.06)',
+                        borderLeft: n.is_read ? 'none' : '3px solid #059669',
                         '&:hover': { bgcolor: 'action.hover' },
                       }}
                     >
@@ -169,7 +169,7 @@ const handleNotifClick = (n: Notification) => {
           {/* ── Avatar → menu profil ── */}
           <Tooltip title="Profil">
             <IconButton onClick={handleProfileOpen}>
-              <Avatar sx={{ width: 32, height: 32, bgcolor: '#1e293b', fontSize: 14 }}>
+              <Avatar sx={{ width: 32, height: 32, bgcolor: '#06241b', fontSize: 14, color: '#10b981', fontWeight: 700 }}>
                 {user?.prenom?.charAt(0)}{user?.nom?.charAt(0)}
               </Avatar>
             </IconButton>
@@ -217,7 +217,7 @@ const handleNotifClick = (n: Notification) => {
               <Chip
                   label={ROLE_LABELS[user?.role ?? ''] ?? user?.role}
                   size="small"
-                  sx={{ mt: 0.5, height: 20, fontSize: 11 }}
+                  sx={{ mt: 0.5, height: 20, fontSize: 11, bgcolor: 'rgba(16,185,129,0.1)', color: '#047857', fontWeight: 600 }}
                 />
             </Box>
             <Divider />
