@@ -1,4 +1,3 @@
-
 'use client'
 import { useState } from 'react'
 import Image from 'next/image';
@@ -14,12 +13,14 @@ import {
   HistoryOutlined, MenuOutlined, CloseOutlined,
   ShieldOutlined, FolderOutlined, LogoutOutlined,
   PublicOutlined, LocationCityOutlined,
-  PendingActionsOutlined, BusinessOutlined,
+  PendingActionsOutlined, BusinessOutlined, LockClockOutlined,
   AccountBalanceOutlined, SwapHorizOutlined, CategoryOutlined,
   GroupOutlined, PersonAddOutlined, BadgeOutlined,
-  ExpandLess, ExpandMore
+  ExpandLess, ExpandMore,
+  TravelExploreOutlined
 } from '@mui/icons-material'
 import useAuthStore from '@/store/authStore'
+import type { UserType } from '@/store/authStore'
 
 const DRAWER_WIDTH = 260
 
@@ -51,9 +52,18 @@ const menuParRole: MenuParRole = {
     },
     { label: 'Transactions Clients',  icon: <AccountBalanceOutlined />, href: '/conformite/transactions' },
     { label: 'Mouvements Agences',    icon: <SwapHorizOutlined />,      href: '/conformite/mouvements' },
+    {
+      label: 'Classeurs',
+      icon: <LockClockOutlined />,
+      children: [
+        { label: 'Classeurs Transactions', icon: <AccountBalanceOutlined />, href: '/conformite/classeurs/transactions' },
+        { label: 'Classeurs Mouvements',   icon: <SwapHorizOutlined />,      href: '/conformite/classeurs/archives' },
+      ],
+    },
     // { label: 'Archives & Exports',    icon: <FolderOutlined />,         href: '/conformite/archives' },
     { label: 'Statistiques globales', icon: <BarChartOutlined />,       href: '/conformite/stats' },
   ],
+
   superadmin: [
     { label: 'Tableau de bord',  icon: <DashboardOutlined />,    href: '/admin' },
     { label: 'Utilisateurs',     icon: <PeopleOutlined />,       href: '/admin/utilisateurs' },
@@ -107,11 +117,54 @@ const menuParRole: MenuParRole = {
   ],
 }
 
+function getMenuConformite(user: UserType | null): MenuItem[] {
+  const items: MenuItem[] = [
+    { label: 'Tableau de bord',       icon: <DashboardOutlined />,      href: '/conformite' },
+    { label: 'Liste des clients',     icon: <GroupOutlined />,          href: '/conformite/clients' },
+    {
+      label: 'Conformité KYC',
+      icon: <BadgeOutlined />,
+      children: [
+        { label: 'Gestion des pièces', icon: <BadgeOutlined />, href: '/conformite/recap' },
+      ],
+    },
+    { label: 'Transactions Clients',  icon: <AccountBalanceOutlined />, href: '/conformite/transactions' },
+    { label: 'Mouvements Agences',    icon: <SwapHorizOutlined />,      href: '/conformite/mouvements' },
+    {
+      label: 'Classeurs',
+      icon: <LockClockOutlined />,
+      children: [
+        { label: 'Classeurs Transactions', icon: <AccountBalanceOutlined />, href: '/conformite/classeurs/transactions' },
+        { label: 'Classeurs Mouvements',   icon: <SwapHorizOutlined />,      href: '/conformite/classeurs/archives' },
+      ],
+    },
+    { label: 'Statistiques globales', icon: <BarChartOutlined />, href: '/conformite/stats' },
+  ]
+
+  // Ajout dynamique de l'Analyse Nationale si l'utilisateur est de rôle conformité et n'a pas de ville rattachée
+  if (user?.role === 'conformite' && !user?.ville) {
+    items.push({
+      label: 'Analyse Inter-Nationale',
+      icon: <TravelExploreOutlined />,
+      href: '/conformite/analyse-internationale',
+    })
+  }
+
+  return items
+}
+
 function DrawerContent({ onClose, onLogout }: { onClose?: () => void, onLogout: () => void }) {
   const pathname = usePathname()
   const router   = useRouter()
   const user     = useAuthStore((s) => s.user)
-  const menu     = user?.role ? menuParRole[user.role as keyof MenuParRole] ?? [] : []
+  
+  const menu: MenuItem[] =
+    user?.role === 'conformite'
+      ? getMenuConformite(user)
+      : user?.role
+        ? menuParRole[user.role as keyof MenuParRole] ?? []
+        : []
+
   const [openGroups, setOpenGroups] = useState<string[]>([])
 
   const navigate = (href: string) => {
@@ -185,27 +238,29 @@ function DrawerContent({ onClose, onLogout }: { onClose?: () => void, onLogout: 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <ShieldOutlined sx={{ color: '#10b981', fontSize: 10 }} />
             <Image 
-                            src="/kenaya.png" 
-                            alt="Logo PRESF" 
-                            width={20}  
-                            height={20} 
-                            style={{ 
-                              borderRadius: '50%',      
-                              backgroundColor: '#FFFFFF', 
-                              objectFit: 'cover',       
-                              border: '2px solid #f1f5f9' 
-                            }} 
-                          />
-                          <Typography variant="h4" sx={{ fontSize: 20, fontWeight: 800, letterSpacing: '0.5px' }}>
-                            ArchiviS
-                          </Typography>
+              src="/kenaya.png" 
+              alt="Logo PRESF" 
+              width={20}  
+              height={20} 
+              style={{ 
+                borderRadius: '50%',      
+                backgroundColor: '#FFFFFF', 
+                objectFit: 'cover',       
+                border: '2px solid #f1f5f9' 
+              }} 
+            />
+            <Typography variant="h4" sx={{ fontSize: 20, fontWeight: 800, letterSpacing: '0.5px' }}>
+              ArchiviS
+            </Typography>
           </Box>
         </Box>
         {onClose && <IconButton onClick={onClose} sx={{ color: 'white' }}><CloseOutlined /></IconButton>}
       </Box>
       <Divider sx={{ borderColor: 'rgba(16,185,129,0.15)' }} />
       <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1.5 }}>
-        <Avatar sx={{ bgcolor: 'rgba(16,185,129,0.2)', width: 36, height: 36, color: '#10b981', fontWeight: 700 }}>{user?.prenom?.[0]}{user?.nom?.[0]}</Avatar>
+        <Avatar sx={{ bgcolor: 'rgba(16,185,129,0.2)', width: 36, height: 36, color: '#10b981', fontWeight: 700 }}>
+          {user?.prenom?.[0]}{user?.nom?.[0]}
+        </Avatar>
         <Box>
           <Typography variant="body2" sx={{ color: 'white', fontWeight: 600 }}>{user?.prenom} {user?.nom}</Typography>
           <Typography variant="caption" sx={{ color: '#10b981' }}>{user?.role}</Typography>
@@ -260,4 +315,3 @@ export default function Sidebar() {
     </>
   )
 }
-
