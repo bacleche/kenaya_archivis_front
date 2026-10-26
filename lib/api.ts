@@ -15,6 +15,8 @@ import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 //   return `ws://${host}:8000`
 // }
 
+//alloooooooooooooo
+
 function getBaseUrl(): string {
   if (process.env.NEXT_PUBLIC_API_URL) {
     return process.env.NEXT_PUBLIC_API_URL
