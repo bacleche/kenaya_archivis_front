@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -H 0.0.0.0 -p 3000",
+    "dev": "next dev -H 0.0.0.0 -p 3002",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
@@ -21,6 +21,8 @@
     "dayjs": "^1.11.20",
     "next": "^16.2.10",
     "notistack": "^3.0.2",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^6.3.289",
     "react": "19.2.4",
     "react-chartjs-2": "^5.3.1",
     "react-dom": "19.2.4",
