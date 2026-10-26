@@ -311,6 +311,58 @@ export const archiveAgenceAPI = {
 
 
 
+// export const transactionAPI = {
+//   liste: (params?: object) => api.get('/transactions/', { params }),
+//   telechargerZip: (id: number) => api.get(`/transactions/${id}/zip/`, { responseType: 'blob' }),
+//   stats: (params?: object) => api.get('/transactions/stats/', { params }),
+//   exportCsv: (params?: object) => api.get('/transactions/export-csv/', { params, responseType: 'blob' }),
+//   detail:  (id: number)              => api.get(`/transactions/${id}/`),
+//   valider: (id: number, data: object) => api.post(`/transactions/${id}/valider/`, data),
+
+//   creer:     (data: object)                 => api.post('/transactions/', data),
+//   uploadDoc: (id: number, data: FormData)   => api.post(`/transactions/${id}/documents/`, data, {
+//     headers: { 'Content-Type': 'multipart/form-data' }
+//   }),
+
+//   exportZip: (params: {
+//     date_debut: string
+//     date_fin: string
+//     agence_id?: number
+//     client_id?: number
+//     produit_id?: number
+//   }) => api.get('/transactions/export-zip/', { params, responseType: 'blob' }),
+
+//   afficherDoc: (txId: number, docId: number) => 
+//     api.get(`/transactions/${txId}/afficher_doc/`, { 
+//       params: { doc_id: docId }, 
+//       responseType: 'blob' 
+//     }),
+
+//   recapClient: (params: { client_id: number; date_debut?: string; date_fin?: string; produit_id?: number }) =>
+//     api.get('/transactions/recap-client/', { params }),
+
+//   // NOUVEAU : classeurs mensuels
+//   classeurs: (params: { agence_id: number }) =>
+//     api.get('/transactions/classeurs/', { params }),
+
+//   deverrouillerClasseur: (classeurId: number) =>
+//     api.post(`/transactions/classeurs/${classeurId}/deverrouiller/`),
+
+//   reverrouillerClasseur: (classeurId: number) =>
+//     api.post(`/transactions/classeurs/${classeurId}/reverrouiller/`),
+
+//   nationalParVille: (params: { ville_id: number }) =>
+//     api.get('/transactions/national-par-ville/', { params }),
+
+//   internationalParVille: (params: { ville_id: number }) =>
+//     api.get('/transactions/international-par-ville/', { params }),
+
+//   statsInternational: () => api.get('/transactions/stats-international/'),
+
+//   statsNational: () => api.get('/transactions/stats-national/'),
+// }
+
+
 export const transactionAPI = {
   liste: (params?: object) => api.get('/transactions/', { params }),
   telechargerZip: (id: number) => api.get(`/transactions/${id}/zip/`, { responseType: 'blob' }),
@@ -320,6 +372,7 @@ export const transactionAPI = {
   valider: (id: number, data: object) => api.post(`/transactions/${id}/valider/`, data),
 
   creer:     (data: object)                 => api.post('/transactions/', data),
+  modifier:  (id: number, data: object)     => api.patch(`/transactions/${id}/`, data),
   uploadDoc: (id: number, data: FormData)   => api.post(`/transactions/${id}/documents/`, data, {
     headers: { 'Content-Type': 'multipart/form-data' }
   }),
@@ -360,8 +413,8 @@ export const transactionAPI = {
   statsInternational: () => api.get('/transactions/stats-international/'),
 
   statsNational: () => api.get('/transactions/stats-national/'),
+  
 }
-
 
 export const produitAPI = {
   liste: () => api.get('/produits/'),
